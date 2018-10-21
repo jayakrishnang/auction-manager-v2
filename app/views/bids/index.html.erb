@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<div class="main-panel">
+  <h1>Bids</h1>
+
+  <h1>Bid Room</h1>
+  <div id='bid'>
+    <%= render @bids %>
+  </div>
+  <form>
+    <label>Say something:</label><br>
+    <input type='text' id='room_speaker'>
+  </form>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bids.each do |bid| %>
+      <tr>
+        <td><%= link_to 'Show', bid %></td>
+        <td><%= link_to 'Edit', edit_bid_path(bid) %></td>
+        <td><%= link_to 'Destroy', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bid', new_bid_path %>

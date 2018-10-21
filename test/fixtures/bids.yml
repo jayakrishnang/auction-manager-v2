@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  auction_team: one
+  auction_player: one
+  bid_amount: 1
+  is_closed: false
+
+two:
+  auction_team: two
+  auction_player: two
+  bid_amount: 1
+  is_closed: false

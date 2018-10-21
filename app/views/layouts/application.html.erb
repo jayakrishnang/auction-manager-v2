@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auction Manager V2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  </head>
+
+  <body style="margin: 0px !important;">
+    <div class="wrapper ">
+      <div class="sidebar" data-color="orange">
+        <div class="sidebar-wrapper">
+          <div class="card card-user">
+            <div class="image">
+              <%= image_tag("wp3106634.jpg")%>
+            </div>
+            <div class="card-body" style="background-color: #f96332; min-height: 10px !important">
+              <div class="author">
+                <%= image_tag("logo.jpeg", class: "avatar border-gray")%>
+              </div>
+              <div style="margin-top: -20%; margin-left: 10%;">
+                <h4><strong>Auction</strong>Manager</h4>
+                <div style="padding-left: 73%;margin-top: -10%;">V2.0</div>
+              </div>
+            </div>
+          </div>
+          <ul class="nav">
+            <li>
+              <a href="./dashboard.html">
+                <i class="now-ui-icons design_app"></i>
+                <p>Auctions</p>
+              </a>
+            </li>
+            <li>
+              <a href="./icons.html">
+                <i class="now-ui-icons education_atom"></i>
+                <p>Users</p>
+              </a>
+            </li>
+            <li>
+              <a href="./map.html">
+                <i class="now-ui-icons location_map-big"></i>
+                <p>Teams</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p> -->
+      <%= yield %>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <nav>
+          <ul>
+            <li>
+              JKDESIGNLAB
+            </li>
+            <li>
+            </li>
+            <li>
+              
+            </li>
+          </ul>
+        </nav>
+        <div class="copyright" id="copyright">
+         
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

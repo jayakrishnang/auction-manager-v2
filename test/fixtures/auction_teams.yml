@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  auction: one
+  team: one
+  total_purse: 1
+  purse_spent: 1
+
+two:
+  auction: two
+  team: two
+  total_purse: 1
+  purse_spent: 1

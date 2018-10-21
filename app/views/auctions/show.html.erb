@@ -1,0 +1,31 @@
+<div class="main-panel">
+  <div class="product-showcase">
+    <div class="product-showcase-pattern">
+      <div class="container">
+        <div class="row" style="padding-left: 5%;">
+          <div class="span12 product-background">
+            <div class="row">
+            	<div class="span5 product-image">
+                <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
+              </div>
+              <div class="span7 product-title">
+                <h1>Test<strong> <%= 'Name' %></strong></h1>
+                <div class="product-description">
+                  <p>Base Points: <strong><%= '5' %></strong></p>
+                  <h3>Current Bid: <strong> <%= '10 Points' %></strong></h3>
+                  <h3>Bidding Team: <strong> <%= 'Team Name' %></strong></h3>
+                  <form action="assets/subscribe.php" method="post" class="subscribe">
+                    <input type="text" name="email" class="email" placeholder="Enter your bid">
+                    <button type="submit">Bid!</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= link_to 'Edit', edit_auction_path(@auction) %> |
+<%= link_to 'Back', auctions_path %>
