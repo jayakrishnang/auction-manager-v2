@@ -16,18 +16,18 @@
   <div class="product-showcase-pattern">
     <div class="container">
       <div class="row" style="padding-left: 5%;">
-        <div class="span12 product-background">
+        <div class="span12 product-background animated fadeInRight">
           <div class="row">
           	<div class="span5 product-image">
               <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
             </div>
             <div class="span7 product-title">
               <h1><%= @current_player.name.split(' ').first %><strong> <%= @current_player.name.split(' ').drop(1).join(' ') %></strong></h1>
-              <div class="product-description animate">
+              <div class="product-description">
                 <h3>Base Points: <strong><%= @current_auction_player.minimum_bid_amount %></strong></h3>
                 <% if @highest_bid.present? %>
-                  <h3>Current Bid: <strong> <div id='bid-amount'><%= @highest_bid.bid_amount %></div></strong></h3>
-                  <h3>Bidding Team: <strong> <div id='bid-team'><%= @highest_bid.team.try(:name) %></div></strong></h3>
+                  <h3>Current Bid: <strong> <div id='bid-amount' class="animated bounceIn"><%= @highest_bid.bid_amount %></div></strong></h3>
+                  <h3>Bidding Team: <strong> <div id='bid-team' class="animated bounceIn"><%= @highest_bid.team.try(:name) %></div></strong></h3>
                 <% else %>
                   <h2>Start Bidding!</h2>
                 <% end %>

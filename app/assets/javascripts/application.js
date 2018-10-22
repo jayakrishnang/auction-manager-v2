@@ -24,5 +24,4 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require cable
-//= require mdb.min
 //= require_tree .
