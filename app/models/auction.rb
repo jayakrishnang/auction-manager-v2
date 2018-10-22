@@ -25,4 +25,15 @@ class Auction < ApplicationRecord
       User.where(name: n.strip).first_or_create!
     end
   end
+
+  def find_next_auction_player
+    if self.auction_players.unsold.unskipped.exists?
+      next_auction_player = self.auction_players.unsold.unskipped.first
+    else
+      auction_players = self.auction_players.unsold.skipped
+      auction_players.update_all(is_skipped: false)
+      next_auction_player = self.auction_players.unsold.unskipped.first
+    end
+    next_auction_player
+  end
 end
