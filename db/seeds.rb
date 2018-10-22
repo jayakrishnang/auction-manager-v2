@@ -1,7 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Role.find_or_create_by(name: 'admin')
+Role.find_or_create_by(name: 'user')
+Role.find_or_create_by(name: 'team_owner')
+
+seed_file = Rails.root.join('db', 'seeds', 'users.yml')
+users = YAML::load_file(seed_file)
+users.each do |user|
+  user['email'] = "#{user['name']}@rubyians.com".gsub(' ', '').downcase
+  u = User.create(user)
+  UserRole.create(role_id: 2, user_id: u.id)
+end

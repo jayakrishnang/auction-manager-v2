@@ -14,10 +14,12 @@ class BidUpdatesChannel < ApplicationCable::Channel
     #   @bid_log = BidLog.get_highest_bid(player.id)
     #   @bid_log.is_closed = true
     elsif current_user.team_owner?
+      content = "<h3>Current Bid: <strong> <div class='animated bounceIn'>#{data['bid_amount']}</div></strong></h3>
+                 <h3>Bidding Team: <strong> <div class='animated bounceIn'>#{auction_team.name}</div></strong></h3>"
       bid = Bid.create(bid_amount: data['bid_amount'], auction_player_id: data['auction_player_id'], auction_team_id: data['auction_team_id'])
       # player.update_team_status
     end
-    ActionCable.server.broadcast 'bid_updates_channel', type: 'new_bid', bid_amount: data['bid_amount'], bid_team: auction_team.name
+    ActionCable.server.broadcast 'bid_updates_channel', type: 'new_bid', content: content
   end
 
   def close_bid

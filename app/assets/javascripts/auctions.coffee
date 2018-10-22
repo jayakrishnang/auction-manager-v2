@@ -1,8 +1,7 @@
 App.room = App.cable.subscriptions.create "BidUpdatesChannel",
   received: (data) ->
     if data['type'] == 'new_bid'
-      $('#bid-amount').html data['bid_amount']
-      $('#bid-team').html data['bid_team']
+      $('#bid-info').html data['content']
     else if data['type'] == 'close_bid'
       $('#bid-amount').html data['bid_amount']
       $('#bid-team').html data['bid_team']

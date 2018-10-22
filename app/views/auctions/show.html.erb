@@ -26,8 +26,10 @@
               <div class="product-description">
                 <h3>Base Points: <strong><%= @current_auction_player.minimum_bid_amount %></strong></h3>
                 <% if @highest_bid.present? %>
-                  <h3>Current Bid: <strong> <div id='bid-amount' class="animated bounceIn"><%= @highest_bid.bid_amount %></div></strong></h3>
-                  <h3>Bidding Team: <strong> <div id='bid-team' class="animated bounceIn"><%= @highest_bid.team.try(:name) %></div></strong></h3>
+                  <div id='bid-info'>
+                    <h3>Current Bid: <strong> <div class="animated bounceIn"><%= @highest_bid.bid_amount %></div></strong></h3>
+                    <h3>Bidding Team: <strong> <div class="animated bounceIn"><%= @highest_bid.team.try(:name) %></div></strong></h3>
+                  </div>
                 <% else %>
                   <h2>Start Bidding!</h2>
                 <% end %>
