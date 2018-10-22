@@ -7,5 +7,5 @@ users = YAML::load_file(seed_file)
 users.each do |user|
   user['email'] = "#{user['name']}@rubyians.com".gsub(' ', '').downcase
   u = User.create(user)
-  UserRole.create(role_id: 2, user_id: u.id)
+  UsersRole.create(role_id: 2, user_id: u.id)
 end
