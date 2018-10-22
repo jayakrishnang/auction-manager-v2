@@ -16,7 +16,7 @@ class AuctionsController < ApplicationController
   def show
     @current_auction_player = @auction.current_auction_player || @auction.auction_players.first
     @current_player = @current_auction_player.player
-    @highest_bid = @current_auction_player.bids.includes(:team).order(bid_amount: :desc).limit(1).first
+    @highest_bid = @current_auction_player.highest_bid
   end
 
   # GET /auctions/new

@@ -6,7 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', async: true %>
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <!--     Fonts and icons     -->
@@ -42,13 +42,13 @@
             <li>
               <%= link_to users_path do %>
                 <i class="now-ui-icons business_badge"></i>
-                <p>Players</p>
+                <p>All Players</p>
               <% end %>
             </li>
             <li>
               <%= link_to teams_path do %>
                 <i class="now-ui-icons design_bullet-list-67"></i>
-                <p>Teams</p>
+                <p>All Teams</p>
               <% end %>
             </li>
           </ul>

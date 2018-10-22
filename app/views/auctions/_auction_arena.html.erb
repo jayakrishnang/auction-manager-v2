@@ -1,0 +1,35 @@
+<div class="span12 product-background animated fadeInRight">
+  <div class="row">
+    <div class="span5 product-image">
+      <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
+    </div>
+    <div class="span7 product-title">
+      <h1><%= current_player.name.split(' ').first %><strong> <%= current_player.name.split(' ').drop(1).join(' ') %></strong></h1>
+      <div class="product-description">
+        <h3>Base Points: <strong><%= current_auction_player.minimum_bid_amount %></strong></h3>
+        <% if highest_bid.present? %>
+          <div id='bid-info'>
+            <% if highest_bid.is_closed? %>
+              <%= render 'shared/closed_bid', bid_amount: highest_bid.bid_amount, team_name: highest_bid.team.try(:name) %>
+            <% else %>
+              <%= render 'shared/bid_info', bid_amount: highest_bid.bid_amount, team_name: highest_bid.team.try(:name) %>
+            <% end %>
+          </div>
+        <% else %>
+          <h2>Start Bidding!</h2>
+        <% end %>
+        <%= form_with(model: Bid.new, local: true, html: { id: 'bid-form' }) do |form| %>
+          <%= form.hidden_field :auction_player_id, id: 'auction_player_id', value: current_auction_player.id %>
+          <%= form.hidden_field :auction_team_id, id: 'auction_team_id', value: 1 %>
+          <% if user.team_owner? %>
+            <%= form.number_field :bid_amount, id: 'bid_amount', class: 'input-lg' %>
+            <button type="submit" remote="true">Bid!</button>
+          <% elsif user.admin? %>
+            <button id="close-bid-btn" class="bid-submit">Close Bid</button>
+            <button id="next-player-btn" class="bid-submit">Next Player</button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
