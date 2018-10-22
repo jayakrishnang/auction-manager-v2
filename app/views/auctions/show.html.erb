@@ -15,35 +15,24 @@ input[type=number] {
 <div class="product-showcase">
   <div class="product-showcase-pattern">
     <div class="container">
+      <!-- <div class="row" style="padding-left: 5%;"> -->
       <div class="row" style="padding-left: 2%;">
-        <div class="col-md-11 product-background animated fadeInRight">
-          <div class="row">
-          	<div class="span5 product-image">
-              <%= image_tag("https://i.ytimg.com/vi/vDKHTf2ELyI/maxresdefault.jpg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
-            </div>
-            <div class="span7 product-title">
-              <h2><%= @current_player.name.split(' ').first %><strong> <%= @current_player.name.split(' ').drop(1).join(' ') %></strong></h2>
-              <div class="product-description">
-                <h3>Base Points: <strong><%= @current_auction_player.minimum_bid_amount %></strong></h3>
-                <% if @highest_bid.present? %>
-                <div id='bid-info'>
-                  <h3>Current Bid: <strong> <div class="animated bounceIn"><%= @highest_bid.bid_amount %></div></strong></h3>
-                  <h3>Bidding Team: <strong> <div class="animated bounceIn"><%= @highest_bid.team.try(:name) %></div></strong></h3>
-                </div>
-                <% else %>
-                <h2>Start Bidding!</h2>
-                <% end %>
-                <% if current_user.team_owner? %>
-                <%= form_with(model: Bid.new, local: true, html: { id: 'bid-form' }) do |form| %>
-                <%= form.number_field :bid_amount, id: 'bid_amount', class: 'input-lg' %>
-                <%= form.hidden_field :auction_player_id, id: 'auction_player_id', value: @current_auction_player.id %>
-                <%= form.hidden_field :auction_team_id, id: 'auction_team_id', value: 1 %>
-                <button type="submit" remote="true">Bid!</button>
-                <% end %>
-                <% elsif current_user.admin? %>
-                <%= link_to 'Close Bid', new_bid_path, class: 'bid-submit' %>
-                <% end %>
-              </div>
+        <div class="col-md-11 product-background">
+          <div id="auction_arena" class="row">
+            <%= render 'auction_arena', current_player: @current_player,
+                                        current_auction_player: @current_auction_player,
+                                        highest_bid: @highest_bid,
+                                        user: current_user %>
+          </div>
+          <div class="product-title" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
+            <div class="product-description" style="margin-top:-10%">
+              <% if current_user.team_owner? %>
+                <%= number_field_tag :bid_amount, nil, id: 'bid_amount', class: 'input-lg' %>
+                <button id="bid-btn" class="bid-submit">Bid!</button>
+              <% elsif current_user.admin? %>
+                <button id="close-bid-btn" class="bid-submit">Close Bid</button>
+                <button id="next-player-btn" class="bid-submit">Next Player</button>
+              <% end %>
             </div>
           </div>
         </div>
@@ -93,5 +82,4 @@ input[type=number] {
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   </div>
-  <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 634px; width: 1242px; z-index: -999998; position: absolute;"><img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 1242px; height: 758.186px; max-width: none; z-index: -999999; top: -62.0928px; left: 0px;" src="https://azmind.com/demo/produkta/assets/img/backgrounds/1-.jpg"></div>
 </div>

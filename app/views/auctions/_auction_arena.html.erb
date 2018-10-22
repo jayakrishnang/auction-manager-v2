@@ -1,0 +1,22 @@
+<div class="span5 product-image animated fadeInRight">
+  <%= image_tag("https://i.ytimg.com/vi/vDKHTf2ELyI/maxresdefault.jpg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
+</div>
+<div class="span7 product-title animated fadeInRight">
+  <h2><%= current_player.name.split(' ').first %><strong> <%= current_player.name.split(' ').drop(1).join(' ') %></strong></h2>
+  <div class="product-description">
+    <h3>Base Points: <strong><%= current_auction_player.minimum_bid_amount %></strong></h3>
+    <% if highest_bid.present? %>
+    <div id='bid-info'>
+      <% if highest_bid.is_closed? %>
+        <%= render 'shared/closed_bid', bid_amount: highest_bid.bid_amount, team_name: highest_bid.team.try(:name) %>
+      <% else %>
+        <%= render 'shared/bid_info', bid_amount: highest_bid.bid_amount, team_name: highest_bid.team.try(:name) %>
+      <% end %>
+    </div>
+    <% else %>
+      <h2>Start Bidding!</h2>
+    <% end %>
+    <%= hidden_field_tag :auction_player_id, current_auction_player.id, id: 'auction_player_id' %>
+    <%= hidden_field_tag :auction_team_id, 1, id: 'auction_team_id' %>
+  </div>
+</div>

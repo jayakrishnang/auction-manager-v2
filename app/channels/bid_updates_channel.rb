@@ -9,22 +9,28 @@ class BidUpdatesChannel < ApplicationCable::Channel
 
   def call_bid(data)
     auction_team = AuctionTeam.where(id: data['auction_team_id']).first.team
-    if current_user.admin?
-    #   player.sell_player
-    #   @bid_log = BidLog.get_highest_bid(player.id)
-    #   @bid_log.is_closed = true
-    elsif current_user.team_owner?
-      content = "<h3>Current Bid: <strong> <div class='animated bounceIn'>#{data['bid_amount']}</div></strong></h3>
-                 <h3>Bidding Team: <strong> <div class='animated bounceIn'>#{auction_team.name}</div></strong></h3>"
-      bid = Bid.create(bid_amount: data['bid_amount'], auction_player_id: data['auction_player_id'], auction_team_id: data['auction_team_id'])
-      # player.update_team_status
-    end
+    content = ApplicationController.renderer.render(partial: 'shared/bid_info', locals: { bid_amount: data['bid_amount'], team_name: auction_team.name })
+    bid = Bid.create(bid_amount: data['bid_amount'], auction_player_id: data['auction_player_id'], auction_team_id: data['auction_team_id'])
     ActionCable.server.broadcast 'bid_updates_channel', type: 'new_bid', content: content
   end
 
-  def close_bid
-  	auction_player = AuctionPlayer.find(data['auction_player_id'])
-  	auction_player.close_bid
-  	ActionCable.server.broadcast 'bid_updates_channel', type: 'close_bid', bid_amount: data['bid_amount'], bid_team: auction_team.name
+  def close_bid(data)
+    auction_player = AuctionPlayer.where(id: data['auction_player_id']).first
+    team_name, bid_amount = auction_player.close_bid
+    content = ApplicationController.renderer.render(partial: 'shared/closed_bid', locals: { bid_amount: bid_amount, team_name: team_name })
+    ActionCable.server.broadcast 'bid_updates_channel', type: 'close_bid', content: content
+  end
+
+  def next_player(data)
+    auction_player = AuctionPlayer.where(id: data['auction_player_id']).first
+    auction_player.skip_player unless auction_player.is_sold?
+    auction = auction_player.auction
+    next_auction_player = auction.find_next_auction_player
+    auction.update_attributes(current_player_id: next_auction_player.id)
+    content = ApplicationController.renderer.render(partial: 'auctions/auction_arena', locals: { current_player: next_auction_player.player,
+                                                                                                 current_auction_player: next_auction_player,
+                                                                                                 highest_bid: next_auction_player.highest_bid,
+                                                                                                 user: current_user })
+    ActionCable.server.broadcast 'bid_updates_channel', type: 'next_player', content: content
   end
 end

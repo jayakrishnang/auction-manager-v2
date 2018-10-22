@@ -114,12 +114,12 @@ a:hover { text-decoration: none; }
     line-height: 28px;
 }
 
-.product-title div.product-description form {
+.product-title div.product-description {
     margin-top: 20px;
     margin-bottom: 0;
 }
 
-.product-title div.product-description form input {
+.product-title div.product-description input {
     margin-top: 10px;
     margin-bottom: 0;
     padding: 12px 15px;
@@ -135,17 +135,17 @@ a:hover { text-decoration: none; }
     color: #555;
 }
 
-.product-title div.product-description form input:focus {
+.product-title div.product-description input:focus {
     -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
     -webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
 }
 
-.product-title div.product-description form input:-moz-placeholder { color: #555; }
-.product-title div.product-description form input:-ms-input-placeholder { color: #555; }
-.product-title div.product-description form input::-webkit-input-placeholder { color: #555; }
+.product-title div.product-description input:-moz-placeholder { color: #555; }
+.product-title div.product-description input:-ms-input-placeholder { color: #555; }
+.product-title div.product-description input::-webkit-input-placeholder { color: #555; }
 
-.bid-submit, .product-title div.product-description form button {
+.bid-submit, .product-title div.product-description button {
     margin-top: 10px;
     padding: 12px 25px;
     background: #518d8a;

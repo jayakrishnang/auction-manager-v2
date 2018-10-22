@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_21_151929) do
+ActiveRecord::Schema.define(version: 2018_10_22_195103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2018_10_21_151929) do
     t.integer "bought_for"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_skipped", default: false
     t.index ["auction_id"], name: "index_auction_players_on_auction_id"
   end
 
