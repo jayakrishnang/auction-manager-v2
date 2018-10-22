@@ -4,7 +4,7 @@ class AuctionPlayer < ApplicationRecord
   has_many :bids
 
   # For differentiating form team auctions
-  belongs_to :player_auctions, class_name: 'Auction', foreign_key: :auction_id
+  belongs_to :player_auctions, class_name: 'Auction', foreign_key: :auction_id, optional: true
 
   def close_bid
   	highest_bid = self.bids.includes(:team).order(bid_amount: :desc).limit(1).first
