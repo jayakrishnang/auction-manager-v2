@@ -22,7 +22,6 @@
               <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
             </div>
             <div class="span7 product-title">
-              <h1><%= @current_player.name %></h1>
               <h1><%= @current_player.name.split(' ').first %><strong> <%= @current_player.name.split(' ').drop(1).join(' ') %></strong></h1>
               <div class="product-description animate">
                 <h3>Base Points: <strong><%= @current_auction_player.minimum_bid_amount %></strong></h3>
