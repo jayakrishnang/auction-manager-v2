@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :roles
       resources :teams
       resources :users
-      resources :user_roles
+      resources :users_roles
 
       root to: "auctions#index"
     end

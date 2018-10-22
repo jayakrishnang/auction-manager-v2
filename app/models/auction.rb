@@ -4,7 +4,7 @@ class Auction < ApplicationRecord
   has_many :auction_players
   has_many :teams, through: :auction_teams
   has_many :players, class_name: 'User', foreign_key: 'player_id', through: :auction_players
-  belongs_to :current_auction_player, class_name: 'AuctionPlayer', foreign_key: 'current_player_id'
+  belongs_to :current_auction_player, class_name: 'AuctionPlayer', foreign_key: 'current_player_id', optional: true
 
   def team_list
     teams.map(&:name).join(', ')

@@ -1,26 +1,82 @@
 <style type="text/css">
-  input[type=number] {
-    float: left;
-    font-family: Lato;
-    font-weight: 700;
-    width: 150px !important;
-    margin-right: 3px !important;
-    font-size: 2em !important;
-    text-transform: uppercase;
-    text-align: center;
-    color: #93504C;
-    border: 2px #93504C solid;
-  }
+input[type=number] {
+  float: left;
+  font-family: Lato;
+  font-weight: 700;
+  width: 150px !important;
+  margin-right: 3px !important;
+  font-size: 2em !important;
+  text-transform: uppercase;
+  text-align: center;
+  color: #93504C;
+  border: 2px #93504C solid;
+}
 </style>
 <div class="product-showcase">
   <div class="product-showcase-pattern">
     <div class="container">
-      <div class="row" style="padding-left: 5%;">
-        <div id="auction_arena">
-          <%= render 'auction_arena', current_player: @current_player,
-                                      current_auction_player: @current_auction_player,
-                                      highest_bid: @highest_bid,
-                                      user: current_user %>
+      <!-- <div class="row" style="padding-left: 5%;"> -->
+      <div class="row" style="padding-left: 2%;">
+        <div class="col-md-11 product-background">
+          <div id="auction_arena" class="row">
+            <%= render 'auction_arena', current_player: @current_player,
+                                        current_auction_player: @current_auction_player,
+                                        highest_bid: @highest_bid,
+                                        user: current_user %>
+          </div>
+          <div class="product-title" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
+            <div class="product-description" style="margin-top:-10%">
+              <% if current_user.team_owner? %>
+                <%= number_field_tag :bid_amount, nil, id: 'bid_amount', class: 'input-lg' %>
+                <button id="bid-btn" class="bid-submit">Bid!</button>
+              <% elsif current_user.admin? %>
+                <button id="close-bid-btn" class="bid-submit">Close Bid</button>
+                <button id="next-player-btn" class="bid-submit">Next Player</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="padding-left: 2%;">
+        <div class="col-md-6 product-background animated fadeInRight cards">
+            <h4>My Team</h4>
+            <% 10.times do %>
+            <div class="col-sm-1 col-member-1">
+              <p class="category">Circle Raised</p>
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMB-hnhy77lw4QbCUqKL8wg46VsyJ-e_Mawkf4LYTk91swnr6mZQ" alt="Thumbnail Image" class="rounded-circle img-raised">
+            </div>
+            <% end %>
+        </div>
+        <div class="col-md-5 product-background animated fadeInRight cards">
+          <h4>Status</h4>
+          <div class="content">
+            <div class="social-description">
+                <h2>26</h2>
+                <p>Total Purse</p>
+            </div>
+            <div class="social-description">
+                <h2>26</h2>
+                <p>Spend Purse</p>
+            </div>
+            <div class="social-description">
+                <h2>48</h2>
+                <p>Purse Left</p>
+            </div>
+          </div>
+          <div class="content">
+            <div class="social-description">
+                <h2>26</h2>
+                <p>Total Players</p>
+            </div>
+            <div class="social-description">
+                <h2>26</h2>
+                <p>Male</p>
+            </div>
+            <div class="social-description">
+                <h2>48</h2>
+                <p>Female</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

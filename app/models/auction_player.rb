@@ -4,7 +4,7 @@ class AuctionPlayer < ApplicationRecord
   has_many :bids
 
   # For differentiating form team auctions
-  belongs_to :player_auctions, class_name: 'Auction', foreign_key: :auction_id
+  belongs_to :player_auctions, class_name: 'Auction', foreign_key: :auction_id, optional: true
 
   # Scopes
   scope :unsold, -> { where(bought_by: nil) }
@@ -23,7 +23,7 @@ class AuctionPlayer < ApplicationRecord
   end
 
   def is_sold?
-    self.bought_by.nil?
+    self.bought_by.present?
   end
 
   def skip_player
