@@ -1,64 +1,62 @@
-<div class="main-panel">
-  <div class="product-showcase">
-    <div class="product-showcase-pattern">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-4 offset-4">
-              <div class="card card-user">
-                <div class="image">
-                  <%= image_tag("wp3106634.jpg")%>
-                </div>
-                <div class="card-body">
-                  <div class="author">
-                    <%= image_tag("logo.jpeg", class: "avatar border-gray")%>
-                    <h5 class="title">Sign In</h5>
-                    <div class="row">
-                      <div class="col-md-12 pr-1">
-                        <div class="form-group">
-                          <label>Email</label>
-                          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-                        </div>
+<div class="product-showcase">
+  <div class="product-showcase-pattern">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 offset-4">
+            <div class="card card-user">
+              <div class="image">
+                <%= image_tag("wp3106634.jpg")%>
+              </div>
+              <div class="card-body">
+                <div class="author">
+                  <%= image_tag("logo.jpeg", class: "avatar border-gray")%>
+                  <h5 class="title">Sign In</h5>
+                  <div class="row">
+                    <div class="col-md-12 pr-1">
+                      <div class="form-group">
+                        <label>Email</label>
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12 px-1">
-                        <div class="form-group">
-                          <label>Password</label>
-                          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <% if devise_mapping.rememberable? -%>
-                        <div class="col-md-8 offset-2 pl-1">
-                          <div class="form-group">
-                            <label>Remember Me</label>
-                            <%= f.check_box :remember_me %>
-                          </div>
-                        </div>
-                      <% end -%>
                     </div>
                   </div>
-                </div>
-                <hr>
-                <div class="button-container">
-                  <div class="actions">
-                    <%= f.submit "Log in", class: 'btn btn-primary' %>
+                  <div class="row">
+                    <div class="col-md-12 px-1">
+                      <div class="form-group">
+                        <label>Password</label>
+                        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <% if devise_mapping.rememberable? -%>
+                      <div class="col-md-8 offset-2 pl-1">
+                        <div class="form-group">
+                          <label>Remember Me</label>
+                          <%= f.check_box :remember_me %>
+                        </div>
+                      </div>
+                    <% end -%>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="span7 product-title" style="margin-top: 130%;">
-                <h1><strong>Login </strong>to continue.</h1>
+              <hr>
+              <div class="button-container">
+                <div class="actions">
+                  <%= f.submit "Log in", class: 'btn btn-primary' %>
+                </div>
               </div>
-              <br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
           </div>
+          <div class="col-md-4">
+            <div class="span7 product-title" style="margin-top: 130%;">
+              <h1><strong>Login </strong>to continue.</h1>
+            </div>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+          </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <%= render "devise/shared/links" %>

@@ -12,7 +12,7 @@ module AuctionManagerV2
     config.load_defaults 5.2
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
-	config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+	  config.assets.precompile << /\.(?:svg|eot|woff|ttf|woff2)$/
 
 
     # Settings in config/environments/* take precedence over those specified here.

@@ -4,7 +4,7 @@ jQuery(document).ready(function() {
     /*
         Product showcase background
     */
-    $('.product-showcase').backstretch('assets/img/backgrounds/1-.jpg');
+    $('.product-showcase').backstretch('./backgrounds/1-.jpg');
 
     /*
         Gallery
@@ -21,18 +21,18 @@ jQuery(document).ready(function() {
     /*
         Gallery prettyPhoto
     */
-    $(".gallery-images a[rel^='prettyPhoto']").prettyPhoto({social_tools: false});
+    // $(".gallery-images a[rel^='prettyPhoto']").prettyPhoto({social_tools: false});
 
     /*
         Show latest tweet
     */
-    $(".show-tweet").tweet({
-        username: "anli_zaimi",
-        join_text: "auto",
-        count: 1,
-        loading_text: "loading tweet...",
-        template: "{text} {time}"
-    });
+    // $(".show-tweet").tweet({
+    //     username: "anli_zaimi",
+    //     join_text: "auto",
+    //     count: 1,
+    //     loading_text: "loading tweet...",
+    //     template: "{text} {time}"
+    // });
 
     /*
         Subscription form

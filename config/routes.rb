@@ -14,7 +14,10 @@ Rails.application.routes.draw do
       root to: "auctions#index"
     end
   root 'auctions#index'
-  resources :auctions
+  resources :auctions do
+    resources :teams, as: :team
+    resources :users, as: :player
+  end
   resources :users
   resources :teams
   resources :bids

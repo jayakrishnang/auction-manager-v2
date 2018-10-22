@@ -4,12 +4,19 @@ class AuctionsController < ApplicationController
   # GET /auctions
   # GET /auctions.json
   def index
-    @auctions = Auction.all
+    if current_user.admin?
+      @auctions = Auction.all
+    else
+      @auctions = current_user.auctions
+    end
   end
 
   # GET /auctions/1
   # GET /auctions/1.json
   def show
+    @current_auction_player = @auction.current_auction_player || @auction.auction_players.first
+    @current_player = @current_auction_player.player
+    @highest_bid = @current_auction_player.bids.includes(:team).order(bid_amount: :desc).limit(1).first
   end
 
   # GET /auctions/new
@@ -69,6 +76,6 @@ class AuctionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def auction_params
-      params.fetch(:auction, {})
+      params.require(:auction).permit(:title, :team_list, :team, { team_ids: [] }, :player_ids, :player_list, :player, { player_ids: [] }, :player_ids)
     end
 end

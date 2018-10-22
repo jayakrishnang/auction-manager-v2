@@ -34,29 +34,31 @@
           </div>
           <ul class="nav">
             <li>
-              <a href="./dashboard.html">
-                <i class="now-ui-icons design_app"></i>
+              <%= link_to auctions_path do %>
+                <i class="now-ui-icons business_money-coins"></i>
                 <p>Auctions</p>
-              </a>
+              <% end %>
             </li>
             <li>
-              <a href="./icons.html">
-                <i class="now-ui-icons education_atom"></i>
-                <p>Users</p>
-              </a>
+              <%= link_to users_path do %>
+                <i class="now-ui-icons business_badge"></i>
+                <p>Players</p>
+              <% end %>
             </li>
             <li>
-              <a href="./map.html">
-                <i class="now-ui-icons location_map-big"></i>
+              <%= link_to teams_path do %>
+                <i class="now-ui-icons design_bullet-list-67"></i>
                 <p>Teams</p>
-              </a>
+              <% end %>
             </li>
           </ul>
         </div>
       </div>
       <!-- <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p> -->
-      <%= yield %>
+      <div class="main-panel">
+        <%= yield %>
+      </div>
     </div>
     <footer class="footer">
       <div class="container">

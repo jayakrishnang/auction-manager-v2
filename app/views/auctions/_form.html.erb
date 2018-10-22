@@ -1,17 +1,65 @@
-<%= form_with(model: auction, local: true) do |form| %>
-  <% if auction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(auction.errors.count, "error") %> prohibited this auction from being saved:</h2>
+<div class="panel-header panel-header-sm">
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title"><%= auction.new_record? ? 'New Auction' : 'Edit Auction' %></h5>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: auction, local: true) do |form| %>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Title</label>
+                  <%= form.text_field :title, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Add Teams</label>
+                  <%= form.select :team_ids, Team.pluck(:name, :id), {}, { class: 'form-control', multiple: true } %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Add Players</label>
+                  <%= form.select :player_ids, User.players.pluck(:name, :id), {}, { class: 'form-control', multiple: true } %>
+                </div>
+              </div>
+            </div>
+            <% if auction.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(auction.errors.count, "error") %> prohibited this auction from being saved:</h2>
 
-      <ul>
-      <% auction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+                <ul>
+                <% auction.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="actions">
+              <%= form.submit 'Save', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
   </div>
-<% end %>
+</div>
+
+<script>
+  $(document).on('ready page:load', function () {
+    $('#auction_team_ids').chosen({
+      allow_single_deselect: true,
+      width: '100%'
+    })
+  });
+</script>

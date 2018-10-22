@@ -15,7 +15,14 @@
 //= require bootstrap.min
 //= require now-ui-dashboard.min
 //= require ebook-scripts.js
+//= require jquery.backstretch.min
 //= require rails-ujs
 //= require activestorage
+//= require popper
+//= require tether
+//= require chosen
+//= require bootstrap-sprockets
 //= require turbolinks
+//= require cable
+//= require mdb.min
 //= require_tree .

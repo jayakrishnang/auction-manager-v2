@@ -1,4 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<div class="product-showcase">
+  <div class="product-showcase-pattern">
+    <div class="container">
+      <div class="row" style="padding-left: 5%;">
+        <div class="span12 product-background">
+          <div class="row">
+          	<div class="span5 product-image">
+              <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
+            </div>
+            <div class="span7 product-title">
+              <h1>Test<strong> <%= 'Name' %></strong></h1>
+              <div class="product-description">
+                <p>Base Points: <strong><%= '5' %></strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <%= link_to 'Back', users_path %>

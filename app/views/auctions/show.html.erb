@@ -1,31 +1,53 @@
-<div class="main-panel">
-  <div class="product-showcase">
-    <div class="product-showcase-pattern">
-      <div class="container">
-        <div class="row" style="padding-left: 5%;">
-          <div class="span12 product-background">
-            <div class="row">
-            	<div class="span5 product-image">
-                <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
-              </div>
-              <div class="span7 product-title">
-                <h1>Test<strong> <%= 'Name' %></strong></h1>
-                <div class="product-description">
-                  <p>Base Points: <strong><%= '5' %></strong></p>
-                  <h3>Current Bid: <strong> <%= '10 Points' %></strong></h3>
-                  <h3>Bidding Team: <strong> <%= 'Team Name' %></strong></h3>
-                  <form action="assets/subscribe.php" method="post" class="subscribe">
-                    <input type="text" name="email" class="email" placeholder="Enter your bid">
-                    <button type="submit">Bid!</button>
-                  </form>
-                </div>
+<style type="text/css">
+  input[type=number] {
+    float: left;
+    font-family: Lato;
+    font-weight: 700;
+    width: 150px !important;
+    margin-right: 3px !important;
+    font-size: 2em !important;
+    text-transform: uppercase;
+    text-align: center;
+    color: #93504C;
+    border: 2px #93504C solid;
+  }
+</style>
+<div class="product-showcase">
+  <div class="product-showcase-pattern">
+    <div class="container">
+      <div class="row" style="padding-left: 5%;">
+        <div class="span12 product-background">
+          <div class="row">
+          	<div class="span5 product-image">
+              <%= image_tag("test_image.jpeg", style: 'height: 250px;width:auto;margin-right: 50px;')%>
+            </div>
+            <div class="span7 product-title">
+              <h1><%= @current_player.name %></h1>
+              <h1><%= @current_player.name.split(' ').first %><strong> <%= @current_player.name.split(' ').drop(1).join(' ') %></strong></h1>
+              <div class="product-description animate">
+                <h3>Base Points: <strong><%= @current_auction_player.minimum_bid_amount %></strong></h3>
+                <% if @highest_bid.present? %>
+                  <h3>Current Bid: <strong> <div id='bid-amount'><%= @highest_bid.bid_amount %></div></strong></h3>
+                  <h3>Bidding Team: <strong> <div id='bid-team'><%= @highest_bid.team.try(:name) %></div></strong></h3>
+                <% else %>
+                  <h2>Start Bidding!</h2>
+                <% end %>
+                <% if current_user.team_owner? %>
+                  <%= form_with(model: Bid.new, local: true, html: { id: 'bid-form' }) do |form| %>
+                    <%= form.number_field :bid_amount, id: 'bid_amount', class: 'input-lg' %>
+                    <%= form.hidden_field :auction_player_id, id: 'auction_player_id', value: @current_auction_player.id %>
+                    <%= form.hidden_field :auction_team_id, id: 'auction_team_id', value: 1 %>
+                    <button type="submit" remote="true">Bid!</button>
+                  <% end %>
+                <% elsif current_user.admin? %>
+                  <%= link_to 'Close Bid', new_bid_path, class: 'bid-submit' %>
+                <% end %>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   </div>
 </div>
-<%= link_to 'Edit', edit_auction_path(@auction) %> |
-<%= link_to 'Back', auctions_path %>
