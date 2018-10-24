@@ -24,7 +24,7 @@ input[type=number] {
                                         highest_bid: @highest_bid,
                                         user: current_user %>
           </div>
-          <div class="product-title" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
+          <div class="product-title animated fadeInRight" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
             <div class="product-description" style="margin-top:-10%">
               <% if current_user.team_owner? %>
                 <%= number_field_tag :bid_amount, nil, id: 'bid_amount', class: 'input-lg' %>
@@ -38,16 +38,16 @@ input[type=number] {
         </div>
       </div>
       <div class="row" style="padding-left: 2%;">
-        <div class="col-md-6 product-background animated fadeInRight cards">
+        <div class="col-md-6 product-background cards">
             <h4>My Team</h4>
             <% 10.times do %>
-            <div class="col-sm-1 col-member-1">
+            <div class="col-sm-1 col-member-1 animated bounceIn">
+              <%= image_tag("test_image.jpg", class:"rounded-circle img-raised")%>
               <p class="category">Circle Raised</p>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMB-hnhy77lw4QbCUqKL8wg46VsyJ-e_Mawkf4LYTk91swnr6mZQ" alt="Thumbnail Image" class="rounded-circle img-raised">
             </div>
             <% end %>
         </div>
-        <div class="col-md-5 product-background animated fadeInRight cards">
+        <div class="col-md-5 product-background cards">
           <h4>Status</h4>
           <div class="content">
             <div class="social-description">

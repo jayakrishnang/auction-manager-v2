@@ -35,3 +35,7 @@ $(document).ready ->
     auction_player_id = $('#auction_player_id').val()
     App.room.next_player auction_player_id
     event.preventDefault()
+
+  $('#bid_amount').on "keypress", (event) ->
+    if (event.keyCode == 13)
+      $('#bid-btn').click()
