@@ -38,17 +38,11 @@ input[type=number] {
         </div>
       </div>
       <% if current_user.team_owner? %>
-        <div class="row" style="padding-left: 2%;">
-          <div id="my_team_thumbs" class="col-md-6 product-background cards">
-            <h4>My Team</h4>
-            <% @current_auction_team.auction_players.each do |auction_player| %>
-              <%= render 'shared/my_team_thumb', player_name: auction_player.player.name %>
-            <% end %>
-          </div>
-          <div id="stats" class="col-md-5 product-background cards">
-            <%= render 'shared/stats', current_auction_team: @current_auction_team %>
-          </div>
-        </div>
+        <%= render 'team_info', current_auction_team: @current_auction_team %>
+      <% elsif current_user.admin? %>
+        <% @auction_teams.each do |auction_team| %>
+          <%= render 'team_info', current_auction_team: auction_team %>
+        <% end %>
       <% end %>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

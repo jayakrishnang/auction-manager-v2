@@ -7,7 +7,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :owned_team, class_name: 'Team', foreign_key: :team_owner_id
-  has_many :auctions, through: :owned_teams
+  has_many :auctions, through: :owned_team
   has_many :auction_players, foreign_key: :player_id
   has_many :player_auctions, class_name: 'Auction', through: :auction_players
   has_many :users_roles

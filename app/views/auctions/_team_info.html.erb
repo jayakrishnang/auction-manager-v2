@@ -1,0 +1,11 @@
+<div class="row" style="padding-left: 2%;">
+  <div id="my_team_thumbs" class="col-md-6 product-background cards">
+    <h4><%= current_auction_team.team.name %></h4>
+    <% current_auction_team.auction_players.each do |auction_player| %>
+      <%= render 'shared/my_team_thumb', player_name: auction_player.player.name %>
+    <% end %>
+  </div>
+  <div id="stats" class="col-md-5 product-background cards">
+    <%= render 'shared/stats', current_auction_team: current_auction_team %>
+  </div>
+</div>
