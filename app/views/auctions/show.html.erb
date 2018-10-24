@@ -21,12 +21,12 @@ input[type=number] {
           <div id="auction_arena" class="row">
             <%= render 'auction_arena', current_player: @current_player,
                                         current_auction_player: @current_auction_player,
-                                        highest_bid: @highest_bid,
-                                        user: current_user %>
+                                        highest_bid: @highest_bid %>
           </div>
           <div class="product-title animated fadeInRight" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
             <div class="product-description" style="margin-top:-10%">
               <% if current_user.team_owner? %>
+                <%= hidden_field_tag :auction_team_id, @current_team.try(:id), id: 'auction_team_id' %>
                 <%= number_field_tag :bid_amount, nil, id: 'bid_amount', class: 'input-lg' %>
                 <button id="bid-btn" class="bid-submit">Bid!</button>
               <% elsif current_user.admin? %>
@@ -37,48 +37,19 @@ input[type=number] {
           </div>
         </div>
       </div>
-      <div class="row" style="padding-left: 2%;">
-        <div class="col-md-6 product-background cards">
+      <% if current_user.team_owner? %>
+        <div class="row" style="padding-left: 2%;">
+          <div id="my_team_thumbs" class="col-md-6 product-background cards">
             <h4>My Team</h4>
-            <% 10.times do %>
-            <div class="col-sm-1 col-member-1 animated bounceIn">
-              <%= image_tag("test_image.jpg", class:"rounded-circle img-raised")%>
-              <p class="category">Circle Raised</p>
-            </div>
+            <% @current_auction_team.auction_players.each do |auction_player| %>
+              <%= render 'shared/my_team_thumb', player_name: auction_player.player.name %>
             <% end %>
-        </div>
-        <div class="col-md-5 product-background cards">
-          <h4>Status</h4>
-          <div class="content">
-            <div class="social-description">
-                <h2>26</h2>
-                <p>Total Purse</p>
-            </div>
-            <div class="social-description">
-                <h2>26</h2>
-                <p>Spend Purse</p>
-            </div>
-            <div class="social-description">
-                <h2>48</h2>
-                <p>Purse Left</p>
-            </div>
           </div>
-          <div class="content">
-            <div class="social-description">
-                <h2>26</h2>
-                <p>Total Players</p>
-            </div>
-            <div class="social-description">
-                <h2>26</h2>
-                <p>Male</p>
-            </div>
-            <div class="social-description">
-                <h2>48</h2>
-                <p>Female</p>
-            </div>
+          <div id="stats" class="col-md-5 product-background cards">
+            <%= render 'shared/stats', current_auction_team: @current_auction_team %>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   </div>
