@@ -4,6 +4,9 @@ App.room = App.cable.subscriptions.create "BidUpdatesChannel",
       $('#bid-info').html data['content']
     else if data['type'] == 'close_bid'
       $('#bid-info').html data['content']
+      if data['auction_team_id'] == $('#auction_team_id').val()
+        $('#stats').html data['stats_content']
+        $('#my_team_thumbs').append data['thumbs_content']
     else if data['type'] == 'next_player'
       $('#auction_arena').html data['content']
 

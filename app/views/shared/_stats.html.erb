@@ -1,0 +1,29 @@
+<h4>Stats</h4>
+<div class="content">
+  <div class="social-description">
+      <h2><%= current_auction_team.total_purse.to_i %></h2>
+      <p>Total Purse</p>
+  </div>
+  <div class="social-description">
+      <h2><%= current_auction_team.purse_spent.to_i %></h2>
+      <p>Points spent</p>
+  </div>
+  <div class="social-description">
+      <h2><%= current_auction_team.total_purse.to_i - current_auction_team.purse_spent.to_i %></h2>
+      <p>Points Left</p>
+  </div>
+</div>
+<div class="content">
+  <div class="social-description">
+      <h2><%= current_auction_team.auction_players.count %></h2>
+      <p>Total Players</p>
+  </div>
+  <div class="social-description">
+      <h2><%= current_auction_team.auction_players.joins(:player).where(users: {gender: 0}).count %></h2>
+      <p>Male</p>
+  </div>
+  <div class="social-description">
+      <h2><%= current_auction_team.auction_players.joins(:player).where(users: {gender: 1}).count %></h2>
+      <p>Female</p>
+  </div>
+</div>

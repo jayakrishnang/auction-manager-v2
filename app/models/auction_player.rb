@@ -19,7 +19,9 @@ class AuctionPlayer < ApplicationRecord
   	bid = self.highest_bid
     bid.mark_as_closed
     self.update_attributes(bought_by: bid.auction_team_id, bought_for: bid.bid_amount)
-    [bid.team.name, bid.bid_amount]
+    auction_team = bid.auction_team
+    auction_team.update_attributes(purse_spent: auction_team.purse_spent + bid.bid_amount)
+    bid
   end
 
   def is_sold?
