@@ -17,10 +17,12 @@ class AuctionsController < ApplicationController
     @current_auction_player = @auction.current_auction_player || @auction.auction_players.first
     @current_player = @current_auction_player.player
     @highest_bid = @current_auction_player.highest_bid
-    @current_team = current_user.owned_team
-    if @current_team.present?
-      @current_auction_team = @auction.auction_teams.includes(auction_players: :player)
+    if current_user.team_owner?
+      @current_team = current_user.owned_team
+      @current_auction_team = @auction.auction_teams.includes(:team, {auction_players: :player})
                                       .where(team_id: @current_team.id).first
+    elsif current_user.admin?
+      @auction_teams = @auction.auction_teams.includes(:team, {auction_players: :player})
     end
   end
 
