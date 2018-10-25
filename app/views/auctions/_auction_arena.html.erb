@@ -4,8 +4,11 @@
 <div class="span7 product-title animated fadeInRight">
   <h2><%= current_player.name.split(' ').first %><strong> <%= current_player.name.split(' ').drop(1).join(' ') %></strong></h2>
   <div class="product-description">
+    <%= hidden_field_tag :base_points, current_auction_player.minimum_bid_amount %>
     <h3>Base Points: <strong><%= current_auction_player.minimum_bid_amount %></strong></h3>
     <div id='bid-info'>
+      <%= hidden_field_tag :bid_closed, highest_bid.try(:is_closed) %>
+      <%= hidden_field_tag :current_bid_amount, highest_bid.try(:bid_amount) %>
       <% if highest_bid.present? %>
         <% if highest_bid.is_closed? %>
           <%= render 'shared/closed_bid', bid_amount: highest_bid.bid_amount, team_name: highest_bid.team.try(:name) %>

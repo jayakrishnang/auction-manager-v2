@@ -26,10 +26,13 @@ input[type=number] {
           <div class="product-title animated fadeInRight" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
             <div class="product-description" style="margin-top:-10%">
               <% if current_user.team_owner? %>
+                <%= hidden_field_tag :total_no_of_players_needed, @auction.auction_players.count / @auction.auction_teams.count %>
+                <%= hidden_field_tag :arena_type, 'team_owner', id: 'arena_type' %>
                 <%= hidden_field_tag :auction_team_id, @current_team.try(:id), id: 'auction_team_id' %>
                 <%= number_field_tag :bid_amount, nil, id: 'bid_amount', class: 'input-lg' %>
                 <button id="bid-btn" class="bid-submit">Bid!</button>
               <% elsif current_user.admin? %>
+                <%= hidden_field_tag :arena_type, 'admin', id: 'arena_type' %>
                 <button id="close-bid-btn" class="bid-submit">Close Bid</button>
                 <button id="next-player-btn" class="bid-submit">Next Player</button>
               <% end %>
