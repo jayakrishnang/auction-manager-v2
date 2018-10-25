@@ -22,36 +22,31 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title"> Users </h4>
-          <% if current_user.admin? %>
-            <div class="pull-right">
+          <div class="pull-right">
+            <% if current_user.admin? %>
               <%= link_to 'New User', new_user_path, class: 'btn btn-primary' %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
               <thead class=" text-primary">
-                <th>
-                  Name
-                </th>
-                <th>
-                  Role
-                </th>
-                <th>
-                  Actions
-                </th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Minimum Bid Points</th>
+                <th>Team</th>
+                <th>Bought for</th>
+                <!-- <th>Actions</th> -->
               </thead>
               <tbody>
                 <% @users.each do |user| %>
                   <tr>
                     <td><%= user.name %></td>
-                    <td><%= user.roles.pluck(:name).join(', ') %></td>
-                    <td><%= link_to 'Open', user, class: 'btn btn-primary' %>
-                        <% if current_user.admin? %>
-                          <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary' %>
-                          <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %></td>
-                        <% end %>
+                    <td align="center"><%= user.gender %></td>
+                    <td align="center"><%= user.try(:minimum_bid_amount) %></td>
+                    <td align="center"><%= user.try(:team_name) %></td>
+                    <td align="center"><%= user.try(:bought_for) %></td>
                   </tr>
                 <% end %>
               </tbody>

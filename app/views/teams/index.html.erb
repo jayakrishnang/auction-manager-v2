@@ -1,25 +1,65 @@
-<p id="notice"><%= notice %></p>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent  bg-primary  navbar-absolute">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="navbar-toggle">
+        <button type="button" class="navbar-toggler">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <a class="navbar-brand" href="#pablo">The list of teams created</a>
+    </div>
+  </div>
+</nav>
+<!-- End Navbar -->
+<div class="panel-header panel-header-sm">
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Teams </h4>
+          <div class="pull-right">
+            <% if current_user.admin? %>
+              <%= link_to 'New Team', new_team_path, class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>Name</th>
+                <th>Players Bought</th>
+                <th>Total Purse</th>
+                <th>Points spent</th>
+                <th>Points left</th>
+                <!-- <th>Actions</th> -->
+              </thead>
+              <tbody>
+                <% @teams.each do |team| %>
+                  <% if current_user.team_owner?
+                      auction_team = team.auction_teams.where(auction_id: current_user.auctions.first.id).last
+                    elsif current_user.admin?
+                      auction_team = AuctionTeam.where(team_id: team.id).last
+                    end %>
+                  <tr>
+                    <td><%= team.name %></td>
+                    <td align="center"><%= auction_team.auction_players.count %></td>
+                    <td align="center"><%= auction_team.total_purse.to_i %></td>
+                    <td align="center"><%= auction_team.purse_spent.to_i %></td>
+                    <td align="center"><%= auction_team.total_purse.to_i - auction_team.purse_spent.to_i %></td>
 
-<h1>Teams</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Team', new_team_path %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
