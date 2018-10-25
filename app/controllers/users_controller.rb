@@ -4,7 +4,24 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.team_owner?
+      params[:auction_id] = current_user.auctions.last.id
+    elsif current_user.admin?
+      params[:auction_id] = Auction.last.id
+    end
+    if params[:auction_id]
+      auction = Auction.find(params[:auction_id])
+      @users = auction.auction_players.select('users.*, auction_players.minimum_bid_amount,
+                                               auction_players.bought_for, teams.name AS team_name')
+                                      .joins(:player, {auction_team: :team})
+    else
+      @users = User.players
+    end
+    if current_user.admin?
+      @auctions = Auction.all
+    else
+      @auctions = current_user.auctions
+    end
   end
 
   # GET /users/1
