@@ -51,6 +51,12 @@
                 <p>Teams</p>
               <% end %>
             </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="now-ui-icons media-1_button-power"></i>
+                <p>Logout</p>
+              <% end %>
+            </li>
           </ul>
         </div>
       </div>
