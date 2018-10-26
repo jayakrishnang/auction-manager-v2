@@ -12,6 +12,9 @@ App.room = App.cable.subscriptions.create "BidUpdatesChannel",
         $('#my_team_thumbs-' + data['auction_team_id']).append data['thumbs_content']
     else if data['type'] == 'next_player'
       $('#auction_arena').html data['content']
+      $('#all_players_thumb').children().first().remove()
+      if data['skipped_player_content'] != null
+        $('#all_players_thumb').append data['skipped_player_content']
 
   call_bid: (bid_amount, auction_player_id, auction_team_id)->
     @perform 'call_bid', bid_amount:bid_amount, auction_player_id:auction_player_id, auction_team_id:auction_team_id
@@ -39,7 +42,7 @@ validateBidding = ->
   if currentBid != null and parseInt(currentBid.val()) >= parseInt(bid_amount)
     alert 'Please increase bid points!'
     return false
-  if parseInt(balance) - (((parseInt(totalNoOfPlayers) - 1) - parseInt(noOfPlayers)) * (parseInt(totalNoOfPlayers) - 1)) < parseInt(bid_amount)
+  if parseInt(balance) - (((parseInt(totalNoOfPlayers) - 1) - parseInt(noOfPlayers)) * 5) < parseInt(bid_amount)
     alert 'Insufficient balance! Remember you need to have ' + parseInt(totalNoOfPlayers) + ' players in your team!'
     return false
   if parseInt(noOfPlayers) == parseInt(totalNoOfPlayers)

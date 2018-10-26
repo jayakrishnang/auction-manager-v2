@@ -1,0 +1,26 @@
+<div class="card-header">
+  <h4 class="card-title"> <%= team_name %> </h4>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class=" text-primary">
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Minimum Bid Points</th>
+        <th>Bought for</th>
+        <!-- <th>Actions</th> -->
+      </thead>
+      <tbody>
+        <% players.each do |player| %>
+          <tr>
+            <td><%= player.player.name %></td>
+            <td align="center"><%= player.player.gender.upcase %></td>
+            <td align="center"><%= player.minimum_bid_amount %></td>
+            <td align="center"><%= player.bought_for %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

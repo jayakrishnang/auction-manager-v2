@@ -17,6 +17,7 @@ class BidUpdatesChannel < ApplicationCable::Channel
   def close_bid(data)
     auction_player = AuctionPlayer.where(id: data['auction_player_id']).first
     bid = auction_player.close_bid
+    return if bid.blank?
     content = ApplicationController.renderer.render(partial: 'shared/closed_bid', locals: { bid_amount: bid.bid_amount, team_name: bid.team.name })
     stats_content = ApplicationController.renderer.render(partial: 'shared/stats', locals: { current_auction_team: bid.auction_team })
     thumbs_content = ApplicationController.renderer.render(partial: 'shared/my_team_thumb', locals: { player_name: auction_player.player.name })
@@ -33,9 +34,10 @@ class BidUpdatesChannel < ApplicationCable::Channel
     auction = auction_player.auction
     next_auction_player = auction.find_next_auction_player
     auction.update_attributes(current_player_id: next_auction_player.id)
+    skipped_player_content = ApplicationController.renderer.render(partial: 'shared/all_players_thumb', locals: { player_name: auction_player.player.name })
     content = ApplicationController.renderer.render(partial: 'auctions/auction_arena', locals: { current_player: next_auction_player.player,
                                                                                                  current_auction_player: next_auction_player,
                                                                                                  highest_bid: next_auction_player.highest_bid })
-    ActionCable.server.broadcast 'bid_updates_channel', type: 'next_player', content: content
+    ActionCable.server.broadcast 'bid_updates_channel', type: 'next_player', content: content, skipped_player_content: skipped_player_content
   end
 end

@@ -43,7 +43,7 @@
                 <% @users.each do |user| %>
                   <tr>
                     <td><%= user.name %></td>
-                    <td align="center"><%= user.gender %></td>
+                    <td align="center"><%= user.gender.upcase %></td>
                     <td align="center"><%= user.try(:minimum_bid_amount) %></td>
                     <td align="center"><%= user.try(:team_name) %></td>
                     <td align="center"><%= user.try(:bought_for) %></td>

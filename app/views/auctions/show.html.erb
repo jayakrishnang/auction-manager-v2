@@ -17,14 +17,14 @@ input[type=number] {
     <div class="container">
       <!-- <div class="row" style="padding-left: 5%;"> -->
       <div class="row" style="padding-left: 2%;">
-        <div class="col-md-11 product-background">
+        <div class="col-md-10 product-background">
           <div id="auction_arena" class="row">
             <%= render 'auction_arena', current_player: @current_player,
                                         current_auction_player: @current_auction_player,
                                         highest_bid: @highest_bid %>
           </div>
-          <div class="product-title animated fadeInRight" style="margin-block-end: -1%;margin-top: 4%;margin-left: 37%;">
-            <div class="product-description" style="margin-top:-10%">
+          <div class="row product-title animated fadeInRight" style="/* margin-block-end: -1%; *//* margin-top: 4%; */margin-top: 0px !important;/* margin-left: 40%; */">
+            <div class="col-md-7 offset-md-5 col-sm-12 offset-sm-0 product-description">
               <% if current_user.team_owner? %>
                 <%= hidden_field_tag :total_no_of_players_needed, @auction.auction_players.count / @auction.auction_teams.count %>
                 <%= hidden_field_tag :arena_type, 'team_owner', id: 'arena_type' %>
@@ -34,10 +34,17 @@ input[type=number] {
               <% elsif current_user.admin? %>
                 <%= hidden_field_tag :arena_type, 'admin', id: 'arena_type' %>
                 <button id="close-bid-btn" class="bid-submit">Close Bid</button>
-                <button id="next-player-btn" class="bid-submit">Next Player</button>
+                <% if @auction.auction_players.unsold.exists? %>
+                  <button id="next-player-btn" class="bid-submit">Next Player</button>
+                <% end %>
               <% end %>
             </div>
           </div>
+        </div>
+        <div class="col-md-1 hidden-sm-down product-background" id="all_players_thumb" style="margin-left: 2%;height: 400px;overflow: scroll;">
+          <% up_next_players.each do |auction_player| %>
+            <%= render 'shared/all_players_thumb', player_name: auction_player.player.name %>
+          <% end %>
         </div>
       </div>
       <% if current_user.team_owner? %>
