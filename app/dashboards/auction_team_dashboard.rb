@@ -54,7 +54,7 @@ class AuctionTeamDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how auction teams are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(auction_team)
-  #   "AuctionTeam ##{auction_team.id}"
-  # end
+  def display_resource(auction_team)
+    "#{auction_player.auction.title} - #{auction_player.team.name}"
+  end
 end

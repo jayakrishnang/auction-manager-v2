@@ -46,11 +46,11 @@ class RoleDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(role)
-    "#{role.name.capitalize}"
+    role.name.capitalize
   end
 
   # disable 'edit' and 'destroy' links
-  def valid_action?(name, resource = resource_class)
-    %w[edit destroy].exclude?(name.to_s) && super
-  end
+  # def valid_action?(name, resource = resource_class)
+  #   %w[edit destroy].exclude?(name.to_s) && super
+  # end
 end

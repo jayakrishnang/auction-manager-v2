@@ -53,6 +53,6 @@ class TeamDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(team)
-    "##{team.name}"
+    team.name.classify
   end
 end

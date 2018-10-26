@@ -60,7 +60,7 @@ class AuctionPlayerDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how auction players are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(auction_player)
-  #   "AuctionPlayer ##{auction_player.id}"
-  # end
+  def display_resource(auction_player)
+    "#{auction_player.auction.title} - #{auction_player.player.name}"
+  end
 end
