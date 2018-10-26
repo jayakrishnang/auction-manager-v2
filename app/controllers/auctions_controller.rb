@@ -11,6 +11,21 @@ class AuctionsController < ApplicationController
     end
   end
 
+  def team_list
+    if params[:auction_id].present?
+      @auction = Auction.find(params[:auction_id])
+    elsif current_user.admin?
+      @auction = Auction.last
+    elsif current_user.team_owner?
+      @auction = current_user.auctions.last
+    end
+    if current_user.admin?
+      @auction_players = AuctionPlayer.includes(:player).where(auction_id: @auction.id).where.not(bought_by: nil)
+    else
+      @auction_players = AuctionPlayer.includes(:player).where(auction_id: @auction.id, bought_by: current_user.owned_team.id)
+    end
+  end
+
   # GET /auctions/1
   # GET /auctions/1.json
   def show

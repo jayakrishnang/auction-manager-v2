@@ -1,0 +1,6 @@
+<div class="row">
+  <div class="col-sm-12 animated bounceIn">
+    <%= profile_pic_tag "profile_pics/#{player_name.downcase.delete(' ')}.jpg", { class:"rounded-circle img-raised" } %>
+    <p class="category" align="center"><%= player_name.split(' ').first %></p>
+  </div>
+</div>

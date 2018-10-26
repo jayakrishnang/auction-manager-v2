@@ -1,7 +1,7 @@
 class AuctionPlayer < ApplicationRecord
   belongs_to :auction
   belongs_to :player, class_name: 'User', foreign_key: :player_id
-  belongs_to :auction_team, foreign_key: :bought_by
+  belongs_to :auction_team, foreign_key: :bought_by, optional: true
   has_many :bids
 
   # For differentiating form team auctions

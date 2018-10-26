@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :auctions do
     resources :teams, as: :team
     resources :users, as: :player
+    get :team_list, on: :collection
   end
   resources :users
   resources :teams
