@@ -35,7 +35,7 @@ class AuctionsController < ApplicationController
     if current_user.team_owner?
       @current_team = current_user.owned_team
       @current_auction_team = @auction.auction_teams.includes(:team, {auction_players: :player})
-                                      .where(team_id: @current_team.id).first
+                                      .where(team_id: @current_team.id).last
     elsif current_user.admin?
       @auction_teams = @auction.auction_teams.includes(:team, {auction_players: :player})
     end

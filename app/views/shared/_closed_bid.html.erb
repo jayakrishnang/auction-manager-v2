@@ -1,4 +1,6 @@
 <div class='animated tada'>
+  <%= hidden_field_tag :bid_closed, highest_bid.try(:is_closed), id: 'bid_closed' %>
+  <%= hidden_field_tag :current_bid_amount, highest_bid.try(:bid_amount), id: 'current_bid_amount' %>
   <h3>Sold to<strong> <%= team_name %></strong><br/>
   for <strong><%= bid_amount %></strong> points!</h3>
 </div>

@@ -32,8 +32,8 @@
           <div class="table-responsive">
             <table class="table">
               <thead class=" text-primary">
+                <th></th>
                 <th>Name</th>
-                <th>Gender</th>
                 <th>Minimum Bid Points</th>
                 <th>Team</th>
                 <th>Bought for</th>
@@ -42,8 +42,8 @@
               <tbody>
                 <% @users.each do |user| %>
                   <tr>
+                    <td style="width: 50px;"><%= profile_pic_tag "profile_pics/#{user.name.downcase.delete(' ')}.jpg", { class:"rounded-circle img-raised", style:"width: 50px;" } %></td>
                     <td><%= user.name %></td>
-                    <td align="center"><%= user.gender.upcase %></td>
                     <td align="center"><%= user.try(:minimum_bid_amount) %></td>
                     <td align="center"><%= user.try(:team_name) %></td>
                     <td align="center"><%= user.try(:bought_for) %></td>
