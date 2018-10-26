@@ -10,6 +10,13 @@ class AuctionDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     title: Field::String,
+    teams: Field::HasMany.with_options(
+            class_name: 'Team'
+          ),
+    players: Field::HasMany.with_options(
+            class_name: 'User',
+            scope: -> { Auction.includes(:players).limit(5) }
+          ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -22,6 +29,8 @@ class AuctionDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :title,
+    :teams,
+    :players,
     :created_at,
     :updated_at,
   ].freeze
@@ -31,6 +40,7 @@ class AuctionDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :title,
+    :teams,
     :created_at,
     :updated_at,
   ].freeze
@@ -40,12 +50,14 @@ class AuctionDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :title,
+    :teams,
+    :players
   ].freeze
 
   # Overwrite this method to customize how auctions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(auction)
-  #   "Auction ##{auction.id}"
-  # end
+  def display_resource(auction)
+    auction.title.classify
+  end
 end

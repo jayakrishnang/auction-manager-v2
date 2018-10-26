@@ -52,7 +52,7 @@ class TeamDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how teams are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(team)
-  #   "Team ##{team.id}"
-  # end
+  def display_resource(team)
+    "##{team.name}"
+  end
 end
