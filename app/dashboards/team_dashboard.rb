@@ -10,8 +10,11 @@ class TeamDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    team_owner: Field::BelongsTo.with_options(class_name: "User"),
-    team_owner_id: Field::Number,
+    team_owner: Field::BelongsTo.with_options(
+                class_name: 'User',
+                searchable: true,
+                searchable_field: 'name',
+              ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze

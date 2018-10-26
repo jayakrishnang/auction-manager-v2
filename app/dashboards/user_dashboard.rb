@@ -11,6 +11,11 @@ class UserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     email: Field::String,
+    roles: Field::HasMany.with_options(
+            class_name: 'Role',
+            searchable: true,
+            searchable_field: 'name',
+          ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -33,6 +38,7 @@ class UserDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :email,
+    :roles,
     :created_at,
     :updated_at,
   ].freeze
@@ -43,12 +49,13 @@ class UserDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :name,
     :email,
+    :roles
   ].freeze
 
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(user)
+    "#{user.name.classify}"
+  end
 end
