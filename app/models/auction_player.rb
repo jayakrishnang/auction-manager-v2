@@ -12,6 +12,8 @@ class AuctionPlayer < ApplicationRecord
   scope :unskipped, -> { where(is_skipped: false) }
   scope :skipped, -> { where(is_skipped: true) }
 
+  before_create :set_minimum_bid_points
+
   def highest_bid
     self.bids.includes(:team).where.not(bid_amount: nil).order(bid_amount: :desc).limit(1).first
   end
@@ -21,7 +23,7 @@ class AuctionPlayer < ApplicationRecord
     bid.mark_as_closed
     self.update_attributes(bought_by: bid.auction_team_id, bought_for: bid.bid_amount)
     auction_team = bid.auction_team
-    auction_team.update_attributes(purse_spent: auction_team.purse_spent + bid.bid_amount)
+    auction_team.update_attributes(purse_spent: auction_team.purse_spent.to_i + bid.bid_amount.to_i)
     bid
   end
 
@@ -31,5 +33,9 @@ class AuctionPlayer < ApplicationRecord
 
   def skip_player
     self.update_attributes(is_skipped: true)
+  end
+
+  def set_minimum_bid_points
+    self.minimum_bid_amount = 5
   end
 end

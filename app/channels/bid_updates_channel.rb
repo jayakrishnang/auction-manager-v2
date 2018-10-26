@@ -9,8 +9,9 @@ class BidUpdatesChannel < ApplicationCable::Channel
 
   def call_bid(data)
     auction_team = AuctionTeam.where(id: data['auction_team_id']).first.team
-    content = ApplicationController.renderer.render(partial: 'shared/bid_info', locals: { bid_amount: data['bid_amount'], team_name: auction_team.name })
     bid = Bid.create(bid_amount: data['bid_amount'], auction_player_id: data['auction_player_id'], auction_team_id: data['auction_team_id'])
+    highest_bid = AuctionPlayer.where(id: data['auction_player_id']).first.highest_bid
+    content = ApplicationController.renderer.render(partial: 'shared/bid_info', locals: { bid_amount: data['bid_amount'], team_name: auction_team.name, highest_bid: highest_bid })
     ActionCable.server.broadcast 'bid_updates_channel', type: 'new_bid', content: content
   end
 
@@ -18,7 +19,8 @@ class BidUpdatesChannel < ApplicationCable::Channel
     auction_player = AuctionPlayer.where(id: data['auction_player_id']).first
     bid = auction_player.close_bid
     return if bid.blank?
-    content = ApplicationController.renderer.render(partial: 'shared/closed_bid', locals: { bid_amount: bid.bid_amount, team_name: bid.team.name })
+    highest_bid = auction_player.highest_bid
+    content = ApplicationController.renderer.render(partial: 'shared/closed_bid', locals: { bid_amount: bid.bid_amount, team_name: bid.team.name, highest_bid: highest_bid })
     stats_content = ApplicationController.renderer.render(partial: 'shared/stats', locals: { current_auction_team: bid.auction_team })
     thumbs_content = ApplicationController.renderer.render(partial: 'shared/my_team_thumb', locals: { player_name: auction_player.player.name })
     ActionCable.server.broadcast 'bid_updates_channel', type: 'close_bid',
@@ -30,11 +32,13 @@ class BidUpdatesChannel < ApplicationCable::Channel
 
   def next_player(data)
     auction_player = AuctionPlayer.where(id: data['auction_player_id']).first
-    auction_player.skip_player unless auction_player.is_sold?
+    unless auction_player.is_sold?
+      auction_player.skip_player
+      skipped_player_content = ApplicationController.renderer.render(partial: 'shared/all_players_thumb', locals: { player_name: auction_player.player.name })
+    end
     auction = auction_player.auction
     next_auction_player = auction.find_next_auction_player
     auction.update_attributes(current_player_id: next_auction_player.id)
-    skipped_player_content = ApplicationController.renderer.render(partial: 'shared/all_players_thumb', locals: { player_name: auction_player.player.name })
     content = ApplicationController.renderer.render(partial: 'auctions/auction_arena', locals: { current_player: next_auction_player.player,
                                                                                                  current_auction_player: next_auction_player,
                                                                                                  highest_bid: next_auction_player.highest_bid })

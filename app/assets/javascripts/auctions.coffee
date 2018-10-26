@@ -26,6 +26,7 @@ App.room = App.cable.subscriptions.create "BidUpdatesChannel",
     @perform 'next_player', auction_player_id:auction_player_id
 
 validateBidding = ->
+  debugger
   balance = $('#purse_balance').val()
   bid_amount = $('#bid_amount').val()
   base_points = $('#base_points').val()
@@ -35,6 +36,9 @@ validateBidding = ->
   bid_closed = $('#bid_closed')
   if bid_closed != null and bid_closed.val() == 'true'
     alert 'Bidding closed. Please select next player!'
+    return false
+  if bid_amount.match(/^[0-9]+$/) == null
+    alert 'Incorrect format!'
     return false
   if parseInt(bid_amount) < parseInt(base_points)
     alert 'Bid points is lesser than base price. Please increase bid points!'

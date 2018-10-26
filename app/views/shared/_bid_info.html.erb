@@ -1,2 +1,4 @@
+<%= hidden_field_tag :bid_closed, highest_bid.try(:is_closed), id: 'bid_closed' %>
+<%= hidden_field_tag :current_bid_amount, highest_bid.try(:bid_amount), id: 'current_bid_amount' %>
 <h3>Current Bid: <strong> <div class="animated bounceIn"><%= bid_amount %></div></strong></h3>
 <h3>Bidding Team: <strong> <div class="animated bounceIn"><%= team_name %></div></strong></h3>
