@@ -20,7 +20,6 @@
 //= require activestorage
 //= require popper
 //= require tether
-//= require chosen
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require cable
