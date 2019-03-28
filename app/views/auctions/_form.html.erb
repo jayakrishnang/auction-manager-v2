@@ -1,3 +1,11 @@
+<script>
+  $(document).ready(function() {
+    $('.chosen-select').chosen({
+      allow_single_deselect: true,
+      width: '100%'
+    })
+  });
+</script>
 <div class="panel-header panel-header-sm">
 </div>
 <div class="content">
@@ -21,7 +29,7 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Add Teams</label>
-                  <%= form.select :team_ids, Team.pluck(:name, :id), {}, { class: 'form-control', multiple: true } %>
+                  <%= form.select :team_ids, Team.pluck(:name, :id), {}, { class: 'chosen-select', multiple: true } %>
                 </div>
               </div>
             </div>
@@ -29,7 +37,7 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Add Players</label>
-                  <%= form.select :player_ids, User.players.pluck(:name, :id), {}, { class: 'form-control', multiple: true } %>
+                  <%= form.select :player_ids, User.players.pluck(:name, :id), {}, { class: 'chosen-select', multiple: true } %>
                 </div>
               </div>
             </div>
@@ -54,12 +62,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on('ready page:load', function () {
-    $('#auction_team_ids').chosen({
-      allow_single_deselect: true,
-      width: '100%'
-    })
-  });
-</script>

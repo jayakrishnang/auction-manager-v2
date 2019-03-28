@@ -13,6 +13,8 @@
 //= require jquery.min
 //= require popper.min
 //= require bootstrap.min
+//= require chosen-jquery
+//= require scaffold
 //= require now-ui-dashboard.min
 //= require ebook-scripts.js
 //= require jquery.backstretch.min

@@ -2,7 +2,7 @@
 input[type=number] {
   float: left;
   font-family: Lato;
-  font-weight: 700;
+  font-weight: 800;
   width: 150px !important;
   margin-right: 3px !important;
   font-size: 2em !important;
@@ -41,12 +41,13 @@ input[type=number] {
             </div>
           </div>
         </div>
-        <div class="col-md-1 hidden-sm-down product-background" id="all_players_thumb" style="margin-left: 2%;height: 400px;overflow: scroll;">
+             <div class="col-md-1 hidden-sm-down product-background" id="all_players_thumb" style="margin-left: 2%;height: 400px;overflow: scroll;">
           <% up_next_players.each do |auction_player| %>
             <%= render 'shared/all_players_thumb', player_name: auction_player.player.name %>
           <% end %>
         </div>
       </div>
+      <div class="container" style="height: 300px;overflow: scroll;">
       <% if current_user.team_owner? %>
         <%= render 'team_info', current_auction_team: @current_auction_team %>
       <% elsif current_user.admin? %>
@@ -54,6 +55,7 @@ input[type=number] {
           <%= render 'team_info', current_auction_team: auction_team %>
         <% end %>
       <% end %>
+    </div>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   </div>

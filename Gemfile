@@ -57,6 +57,7 @@ group :development, :test do
   # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'awesome_rails_console'
   gem 'rails-assets-chosen'
+  gem 'chosen-rails'
 end
 
 group :development do
